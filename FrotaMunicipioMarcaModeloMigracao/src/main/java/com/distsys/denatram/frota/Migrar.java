@@ -7,7 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +20,18 @@ import java.util.logging.Logger;
 public class Migrar {
 
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
+        LocalDateTime antes = LocalDateTime.now();
+
         Class.forName("com.mysql.jdbc.Driver");
         Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/frota?useSSL=false", "root", "root");
 
-        Statement tstmt = myConn.createStatement();
-        boolean execute = tstmt.execute("truncate frota");
-        tstmt.close();
-        
+        String truncate = System.getProperty("truncate");
+        if (truncate != null) {
+            Statement tstmt = myConn.createStatement();
+            boolean execute = tstmt.execute("truncate frota");
+            tstmt.close();
+        }
+
         PreparedStatement myStmt = myConn.prepareStatement("insert into frota.frota (frot_it,uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?,?)");
 
         try ( //C:\Frota\MuMaMod.mdb :: Frota
@@ -40,16 +46,15 @@ public class Migrar {
             String query = "SELECT * FROM Frota WHERE [Campo1]='SAO PAULO' AND [Campo2]='" + cidade + "'";
             ResultSet rs = s.executeQuery(query);
             int i = 0;
-            while (rs.next() && i < 550) {
+            while (rs.next()) {
                 i++;
                 long identificacao = rs.getLong(1);
                 int j = 1;
-                if(rs.wasNull()) {
+                if (rs.wasNull()) {
                     myStmt.setNull(i, j);
                 } else {
                     myStmt.setLong(j++, identificacao);
                 }
-                
 
                 String uf = rs.getString(2);
                 myStmt.setString(j++, uf);
@@ -70,11 +75,11 @@ public class Migrar {
                     } catch (NumberFormatException ex) {
                         Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Erro de formatacao", ex);
                     }
-                    myStmt.setInt(j++, ano);                    
+                    myStmt.setInt(j++, ano);
                 }
 
                 double quantidade = rs.getDouble(6);
-                if(rs.wasNull()) {
+                if (rs.wasNull()) {
                     myStmt.setNull(j++, java.sql.Types.BIGINT);
                 } else {
                     myStmt.setBigDecimal(j++, new BigDecimal(quantidade));
@@ -97,6 +102,10 @@ public class Migrar {
         }
         myStmt.close();
         myConn.close();
+
+        LocalDateTime depois = LocalDateTime.now();
+        Duration duration = Duration.between(antes, depois);
+        System.out.println(duration.getSeconds() + " segundos");
     }
 
     private static int sum(int[] vetor) {
