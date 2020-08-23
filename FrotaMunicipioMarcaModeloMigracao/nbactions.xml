@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frotamunicipiomarcamodelomigracao.Migrar</exec.args>
+                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/OneDrive/frotaDenatran/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2020.txt</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xmx10G -classpath %classpath com.distsys.denatram.frotamunicipiomarcamodelomigracao.Migrar</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/OneDrive/frotaDenatran/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2020.txt</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frotamunicipiomarcamodelomigracao.Migrar</exec.args>
+                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/OneDrive/frotaDenatran/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2020.txt</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
