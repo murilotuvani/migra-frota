@@ -81,13 +81,13 @@ public class MigrarTxt {
                         i++;
                     }
 
-                    if ((i % 100) == 0) {
+                    if ((i % 10000) == 0) {
                         int registros = sum(myStmt.executeBatch());
                         System.out.println(registros + " registros inseridos");
                     }
                 }
 
-                if ((i % 1000) >= 0) {
+                if ((i % 10000) >= 0) {
                     int registros = sum(myStmt.executeBatch());
                     System.out.println(registros + " registros inseridos");
                 }
