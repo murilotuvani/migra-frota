@@ -23,7 +23,8 @@ import java.util.regex.Pattern;
  */
 public class MigrarTxt {
 
-    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final String DATABASE = "frota202011";
+    private static final Pattern PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
     private final BufferedReader br;
 
     public MigrarTxt(BufferedReader br) {
@@ -34,7 +35,6 @@ public class MigrarTxt {
         if (args.length > 0) {
             File file = new File(args[0]);
             if (file.exists() && file.canRead()) {
-                //try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"))) {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
                     Class.forName("com.mysql.jdbc.Driver");
                     MigrarTxt mt = new MigrarTxt(br);
@@ -64,14 +64,16 @@ public class MigrarTxt {
     private void execute() throws SQLException {
         boolean first = true;
 
-        try (Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/frota?useSSL=false", "root", "root")) {
+        try (Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false", "root", "root")) {
 
             try (Statement tstmt = myConn.createStatement()) {
                 boolean execute = tstmt.execute("truncate frota");
                 System.out.println("Frota truncated : " + execute);
             }
             int i = 0;
-            try (PreparedStatement myStmt = myConn.prepareStatement("insert into frota.frota (uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?)")) {
+            String insert = "insert into " + DATABASE
+                    + ".frota (uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?)";
+            try (PreparedStatement myStmt = myConn.prepareStatement(insert)) {
                 String line = null;
                 while ((line = br.readLine()) != null) {
                     if (first) {
@@ -81,16 +83,9 @@ public class MigrarTxt {
                         i++;
                     }
 
-                    if ((i % 10000) == 0) {
-                        int registros = sum(myStmt.executeBatch());
-                        System.out.println(registros + " registros inseridos");
-                    }
+                    executeBatch(i, myStmt, line);
                 }
-
-                if ((i % 10000) >= 0) {
-                    int registros = sum(myStmt.executeBatch());
-                    System.out.println(registros + " registros inseridos");
-                }
+                executeBatch(i, myStmt, line);
             } catch (IOException ex) {
                 Logger.getLogger(MigrarTxt.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -144,7 +139,13 @@ public class MigrarTxt {
         if (strNum == null) {
             return false;
         }
-        return pattern.matcher(strNum).matches();
+        return PATTERN.matcher(strNum).matches();
     }
 
+    private void executeBatch(int i, PreparedStatement myStmt, String line) throws SQLException {
+        if ((i % 10000) == 0) {
+            int registros = sum(myStmt.executeBatch());
+            System.out.println(registros + " registros inseridos\nUltima linha : " + line);
+        }
+    }
 }
