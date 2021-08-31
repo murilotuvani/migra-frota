@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class MigrarTxt {
 
-    private static final String DATABASE = "frota202011";
+    private static final String DATABASE = "frota";
     private static final Pattern PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
     private final BufferedReader br;
 
@@ -36,7 +36,7 @@ public class MigrarTxt {
             File file = new File(args[0]);
             if (file.exists() && file.canRead()) {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
-                    Class.forName("com.mysql.jdbc.Driver");
+                    Class.forName("com.mysql.cj.jdbc.Driver");
                     MigrarTxt mt = new MigrarTxt(br);
                     mt.execute();
                 } catch (FileNotFoundException ex) {
