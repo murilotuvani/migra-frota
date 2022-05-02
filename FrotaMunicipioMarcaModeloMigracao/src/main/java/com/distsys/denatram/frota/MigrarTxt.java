@@ -99,12 +99,21 @@ public class MigrarTxt {
             int j = 1;
             int i = 0;
             String uf = params[i++];
+            if (uf != null) {
+                uf = uf.replace("\"", "");
+            }
             myStmt.setString(j++, uf);
 
             String muni = params[i++];
+            if (muni != null) {
+                muni = muni.replace("\"", "");
+            }
             myStmt.setString(j++, muni);
 
             String marcaModelo = params[i++];
+            if (marcaModelo!= null) {
+                marcaModelo = marcaModelo.replace("\"", "");
+            }
             myStmt.setString(j++, marcaModelo);
 
             try {
