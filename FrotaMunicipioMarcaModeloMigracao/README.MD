@@ -1,7 +1,7 @@
 ## Acesso a base de veículos por município.
-Para baixar a tabela acesse:
-[Frota 2022](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2022)
-[Frota 2021](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2021)
+Para baixar a tabela acesse:<br />
+[Frota 2022](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2022)<br />
+[Frota 2021](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2021)<br />
 
 ```sh
 java -jar -Dtruncate -Xmx12G target\MigraFrota.jar SALTO
