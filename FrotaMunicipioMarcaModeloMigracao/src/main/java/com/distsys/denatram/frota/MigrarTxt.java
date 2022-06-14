@@ -117,7 +117,7 @@ public class MigrarTxt {
             myStmt.setString(j++, marcaModelo);
 
             try {
-                String aux = params[i++];
+                String aux = params[i++].replace("\"", "");
                 if (isNumber(aux)) {
                     int ano = Integer.parseInt(aux);
                     myStmt.setInt(j++, ano);
