@@ -10,8 +10,11 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2022.csv</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
+                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
+                <exec.vmArgs>-Xmx10G</exec.vmArgs>
+                <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>
         <action>
@@ -24,9 +27,12 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2022.csv</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
+                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
+                <exec.vmArgs>-Xmx10G -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+                <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>
         <action>
@@ -39,8 +45,11 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xmx10G -classpath %classpath com.distsys.denatram.frota.MigrarTxt /Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Abril_2022.csv</exec.args>
+                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
+                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
+                <exec.vmArgs>-Xmx10G</exec.vmArgs>
+                <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>
     </actions>

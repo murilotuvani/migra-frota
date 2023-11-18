@@ -17,6 +17,12 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
+ * G:\\frota\\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2022.csv
+ * 202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"
+ * 202201 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Janeiro_2022.csv"
+202207 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Julho_2022.csv"
+202301 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Janeiro_2023.csv"
+202307 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"
  * 27/12/2019 20:57:28
  *
  * @author murilo
@@ -24,28 +30,35 @@ import java.util.regex.Pattern;
 public class MigrarTxt {
 
     private static final String DATABASE = "frota";
+    private static final String DATBASE_SERVER_PORT = "3306";
     private static final Pattern PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
     private final BufferedReader br;
+    private final int anoMes;
 
-    public MigrarTxt(BufferedReader br) {
+    public MigrarTxt(int anoMes, BufferedReader br) {
+        this.anoMes = anoMes;
         this.br = br;
     }
 
     public static void main(String args[]) throws SQLException, ClassNotFoundException {
-        if (args.length > 0) {
-            File file = new File(args[0]);
-            if (file.exists() && file.canRead()) {
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    MigrarTxt mt = new MigrarTxt(br);
-                    mt.execute();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MigrarTxt.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MigrarTxt.class.getName()).log(Level.SEVERE, null, ex);
+        if (args.length >= 2) {
+            System.out.println("Ano e Mes yyyyMM : " + args[0]);
+            int ano = Integer.parseInt(args[0]);
+            if (ano > 0) {
+                File file = new File(args[1]);
+                if (file.exists() && file.canRead()) {
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                        MigrarTxt mt = new MigrarTxt(ano, br);
+                        mt.execute();
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(MigrarTxt.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MigrarTxt.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    System.out.println("Arquivo nao encontrado : " + args[1]);
                 }
-            } else {
-                System.out.println("Arquivo nao encontrado : " + file.getAbsolutePath());
             }
         } else {
             System.out.println("Arquivo nao especificado");
@@ -64,7 +77,9 @@ public class MigrarTxt {
     private void execute() throws SQLException {
         boolean first = true;
 
-        try (Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + DATABASE + "?useSSL=false", "root", "root")) {
+        try (Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:"
+                + DATBASE_SERVER_PORT
+                + "/" + DATABASE + "?useSSL=false", "root", "root")) {
 
             try (Statement tstmt = myConn.createStatement()) {
                 boolean execute = tstmt.execute("truncate frota");
@@ -72,7 +87,7 @@ public class MigrarTxt {
             }
             int i = 0;
             String insert = "insert into " + DATABASE
-                    + ".frota (uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?)";
+                    + ".frota (ano_mes,uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?,?)";
             try (PreparedStatement myStmt = myConn.prepareStatement(insert)) {
                 String line = null;
                 while ((line = br.readLine()) != null) {
@@ -98,6 +113,9 @@ public class MigrarTxt {
         if (params.length == 5) {
             int j = 1;
             int i = 0;
+            
+            myStmt.setInt(j++, anoMes);
+            
             String uf = params[i++];
             if (uf != null) {
                 uf = uf.replace("\"", "");
