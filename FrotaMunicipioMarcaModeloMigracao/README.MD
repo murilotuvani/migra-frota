@@ -36,3 +36,7 @@ java -jar -Xmx12G target\MigraFrota.jar SOROCABA
 java -jar -Xmx12G target\MigraFrota.jar TATUI
 java -jar -Xmx12G target\MigraFrota.jar TIETE
 ```
+
+
+java -jar -Xmx12G target\MigraFrota.jar 202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"
+java -jar -Xmx12G target\MigraFrota.jar 202101 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Janeiro_2021.TXT"

@@ -81,10 +81,14 @@ public class MigrarTxt {
                 + DATBASE_SERVER_PORT
                 + "/" + DATABASE + "?useSSL=false", "root", "root")) {
 
-            try (Statement tstmt = myConn.createStatement()) {
-                boolean execute = tstmt.execute("truncate frota");
-                System.out.println("Frota truncated : " + execute);
+            boolean truncate = Boolean.parseBoolean(System.getProperty("truncate", "false"));
+            if (truncate) {
+                try (Statement tstmt = myConn.createStatement()) {
+                    boolean execute = tstmt.execute("truncate frota");
+                    System.out.println("Frota truncated : " + execute);
+                }
             }
+            
             int i = 0;
             String insert = "insert into " + DATABASE
                     + ".frota (ano_mes,uf,muni,marc_mode,ano_fabr,quan_veic) values (?,?,?,?,?,?)";
