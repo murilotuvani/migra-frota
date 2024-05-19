@@ -1,6 +1,7 @@
 ## Acesso a base de veículos por município.
 Para baixar a tabela acesse:<br />
 
+[Frota 2024](https://www.gov.br/transportes/pt-br/pt-br/assuntos/transito/conteudo-Senatran/frota-de-veiculos-2024)<br />
 [Frota 2023](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-Senatran/frota-de-veiculos-2023)<br />
 [Frota 2022](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2022)<br />
 [Frota 2021](https://www.gov.br/infraestrutura/pt-br/assuntos/transito/conteudo-denatran/frota-de-veiculos-2021)<br />
