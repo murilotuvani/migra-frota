@@ -52,7 +52,7 @@ group by uf, muni;
 
 
 -- Com modelos
-select marc_mode, min(ano_fabr), max(ano_fabr), sum(quan_veic) quan, count(1)
+select uf, muni, marc_mode, min(ano_fabr), max(ano_fabr), sum(quan_veic) quan, count(1)
   from frota.frota
 where ano_fabr between 2000 and 2023
    and muni in (
