@@ -12,8 +12,8 @@
             <properties>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
-                <exec.vmArgs>-Xmx10G</exec.vmArgs>
+                <exec.appArgs>202506 "/Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Junho_2025.TXT"</exec.appArgs>
+                <exec.vmArgs>-Xmx5G</exec.vmArgs>
                 <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>
@@ -30,8 +30,8 @@
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
-                <exec.vmArgs>-Xmx10G -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+                <exec.appArgs>202506 "/Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Junho_2025.TXT"</exec.appArgs>
+                <exec.vmArgs>-Xmx5G -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>
@@ -47,8 +47,8 @@
             <properties>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.appArgs>202309 "C:\Users\muril\Downloads\FROTAS\I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Setembro_2023.csv"</exec.appArgs>
-                <exec.vmArgs>-Xmx10G</exec.vmArgs>
+                <exec.appArgs>202506 "/Users/murilotuvani/Downloads/I_Frota_por_UF_Municipio_Marca_e_Modelo_Ano_Junho_2025.TXT"</exec.appArgs>
+                <exec.vmArgs>-Xmx5G</exec.vmArgs>
                 <exec.mainClass>com.distsys.denatram.frota.MigrarTxt</exec.mainClass>
             </properties>
         </action>

@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 public class MigrarTxt {
 
     private static final String DATABASE = "frota";
-    private static final String DATBASE_SERVER_PORT = "3307";
+    private static final String DATBASE_SERVER_PORT = "3306";
     private static final Pattern PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
     private final BufferedReader br;
     private final int anoMes;
@@ -113,7 +113,7 @@ public class MigrarTxt {
 
     private int prepareStatement(PreparedStatement myStmt, String line) throws SQLException {
         //UF;Município;Marca Modelo;Ano Fabricação Veículo CRV;Qtd. Veículos
-        String separadorCampos = System.getProperty("separador.campos", ",");
+        String separadorCampos = System.getProperty("separador.campos", ";");
         String[] params = line.split(separadorCampos);
         if (params.length == 6) {
             int j = 1;
